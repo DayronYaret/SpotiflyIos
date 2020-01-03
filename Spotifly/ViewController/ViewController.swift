@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
@@ -14,9 +15,27 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpElements()
+        
+                if(Auth.auth().currentUser != nil){
+                    print("hola")
+                    DispatchQueue.main.async {
+                        self.transitionToMain()
+        
+                    }
+                }else{
+                    print("adios")
+                    setUpElements()
+                }
         // Do any additional setup after loading the view.
     }
+    
+        func transitionToMain(){
+                let tabBarController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.tabBarController) as? UITabBarController
+                              
+                self.view.window?.rootViewController = tabBarController
+                self.view.window?.makeKeyAndVisible()
+    
+            }
     func setUpElements(){
         Utilities.styleFilledButton(signUpButton)
         Utilities.styleHollowButton(loginButton)
