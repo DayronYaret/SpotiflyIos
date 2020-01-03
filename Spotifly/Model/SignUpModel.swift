@@ -29,7 +29,7 @@ class SignUpModel {
             }else{
                 self.ref = Database.database().reference().child("usuarios").child(username.lowercased())
                 var uid = Auth.auth().currentUser?.uid
-                let user = ["email":email, "uId":uid, "username":username]
+                let user = ["email":email, "uId":uid, "username":username, "ultimaCancion":""]
                 self.ref.setValue(user)
                 completion(false)
             }

@@ -1,22 +1,26 @@
 //
-//  AddSongsViewController.swift
+//  UserSongViewController.swift
 //  Spotifly
 //
-//  Created by alumno on 30/12/2019.
-//  Copyright © 2019 Dayron. All rights reserved.
+//  Created by alumno on 03/01/2020.
+//  Copyright © 2020 Dayron. All rights reserved.
 //
 
 import UIKit
 
-class AddSongsViewController: UIViewController {
+class UserSongViewController: UIViewController {
 
+    @IBOutlet weak var titleButton: UIButton!
+    @IBOutlet weak var usernameLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func songButton(_ sender: Any) {
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -26,7 +30,5 @@ class AddSongsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    @IBAction func logoutButton(_ sender: Any) {
-    }
-    
+
 }

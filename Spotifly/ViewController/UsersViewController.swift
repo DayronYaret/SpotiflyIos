@@ -8,12 +8,36 @@
 
 import UIKit
 
-class UsersViewController: UIViewController {
-
+class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    let userModel = UsersModel()
+    var userList : [UserItem] = []
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return userList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath)
+        cell.textLabel?.text = userList[indexPath.row].username
+        return cell
+    }
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        userModel.fillArray { (error, array) in
+            if(!error){
+                self.userList = array
+                self.tableView.reloadData()
+                
+            }
+        }
         // Do any additional setup after loading the view.
+    }
+    @IBAction func logoutButton(_ sender: Any) {
     }
     
 
