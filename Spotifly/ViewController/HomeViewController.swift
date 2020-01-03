@@ -51,6 +51,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "songPlayer"){
+            if let indexPath = tableView.indexPathForSelectedRow{
+                //homeModel.songSelected(song: self.songList[indexPath.row])
+                let playerController = segue.destination as! PlayerViewController
+                playerController.song = self.songList[indexPath.row]
+                
+            }
+        }
+    }
+    
         func transitionToMain(){
         let mainViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.navMainController) as? UINavigationController
         

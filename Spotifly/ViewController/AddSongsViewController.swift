@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class AddSongsViewController: UIViewController {
 
@@ -27,6 +28,22 @@ class AddSongsViewController: UIViewController {
     }
     */
     @IBAction func logoutButton(_ sender: Any) {
+        
+    let firebaseAuth = Auth.auth()
+            do{
+                try firebaseAuth.signOut()
+                transitionToMain()
+                
+            }catch let signOutError as NSError {
+                print("Error singin out: %@",signOutError)
+        }
+    }
+    
+    func transitionToMain(){
+        let mainViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.navMainController) as? UINavigationController
+        
+        view.window?.rootViewController = mainViewController
+        view.window?.makeKeyAndVisible()
     }
     
 }

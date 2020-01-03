@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let userModel = UsersModel()
@@ -38,9 +39,33 @@ class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Do any additional setup after loading the view.
     }
     @IBAction func logoutButton(_ sender: Any) {
+        
+    let firebaseAuth = Auth.auth()
+        do{
+            try firebaseAuth.signOut()
+            transitionToMain()
+            
+        }catch let signOutError as NSError {
+            print("Error singin out: %@",signOutError)
+        }
     }
     
-
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "userSong"){
+            if let indexPath = tableView.indexPathForSelectedRow{
+                let userSongController = segue.destination as! UserSongViewController
+                userSongController.usuario = self.userList[indexPath.row]
+                
+            }
+        }
+    }
+    
+    func transitionToMain(){
+        let mainViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.navMainController) as? UINavigationController
+        
+        view.window?.rootViewController = mainViewController
+        view.window?.makeKeyAndVisible()
+    }
     /*
     // MARK: - Navigation
 

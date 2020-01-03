@@ -14,10 +14,15 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var actualTimeLabel: UILabel!
     @IBOutlet weak var duartionLabel: UILabel!
     @IBOutlet var progressView: UIView!
+    let playerModel = PlayerModel()
+    var song:SongItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(song)
+        titleLabel.text = song?.title
+        artistLabel.text = song?.artist
+        playerModel.songSelected(song: song!)
         // Do any additional setup after loading the view.
     }
     
