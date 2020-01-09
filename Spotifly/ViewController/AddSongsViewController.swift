@@ -8,12 +8,13 @@
 
 import UIKit
 import FirebaseAuth
+import MediaPlayer
 
-class AddSongsViewController: UIViewController {
+class AddSongsViewController: UIViewController, MPMediaPickerControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -44,6 +45,27 @@ class AddSongsViewController: UIViewController {
         
         view.window?.rootViewController = mainViewController
         view.window?.makeKeyAndVisible()
+    }
+    
+    @IBAction func selectSongs(_ sender: UIButton) {
+        let controller = MPMediaPickerController(mediaTypes: .music)
+        controller.allowsPickingMultipleItems = true
+        controller.popoverPresentationController?.sourceView = sender
+        controller.delegate = self
+        present(controller, animated: true)
+    }
+    func mediaPicker(_ mediaPicker: MPMediaPickerController,
+                     didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
+        // Get the system music player.
+        let musicPlayer = MPMusicPlayerController.systemMusicPlayer
+        musicPlayer.setQueue(with: mediaItemCollection)
+        mediaPicker.dismiss(animated: true)
+        // Begin playback.
+        musicPlayer.play()
+    }
+    
+    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
+        mediaPicker.dismiss(animated: true)
     }
     
 }
